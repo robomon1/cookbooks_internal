@@ -1,0 +1,33 @@
+{
+  "version": "0.0.1",
+  "description": "Installs/Configures jenkins",
+  "name": "jenkins/",
+  "recipes": {
+  },
+  "long_description": "Description\n===========\n\nRequirements\n============\n\nAttributes\n==========\n\nUsage\n=====\n\n",
+  "attributes": {
+  },
+  "license": "Apache 2.0",
+  "suggestions": {
+  },
+  "platforms": {
+  },
+  "recommendations": {
+  },
+  "providing": {
+  },
+  "dependencies": {
+    "sys_firewall": ">= 0.0.0",
+    "rightscale_services_tools": ">= 0.0.0",
+    "rightscale": ">= 0.0.0",
+    "sysctl": ">= 0.0.0"
+  },
+  "groupings": {
+  },
+  "replacing": {
+  },
+  "maintainer": "RightScale Inc",
+  "conflicting": {
+  },
+  "maintainer_email": "premium@rightscale.com"
+}
