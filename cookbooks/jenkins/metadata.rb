@@ -10,3 +10,5 @@ depends "rightscale"
 depends "rightscale_services_tools"
 depends "sys_firewall"
 depends "sysctl"
+
+recipe "jenkins::default", "Installs Jenkins"

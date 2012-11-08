@@ -1,33 +1,34 @@
 {
-  "version": "0.0.1",
-  "description": "Installs/Configures jenkins",
-  "name": "jenkins/",
-  "recipes": {
-  },
-  "long_description": "Description\n===========\n\nRequirements\n============\n\nAttributes\n==========\n\nUsage\n=====\n\n",
   "attributes": {
   },
-  "license": "Apache 2.0",
   "suggestions": {
+  },
+  "license": "Apache 2.0",
+  "maintainer_email": "premium@rightscale.com",
+  "maintainer": "RightScale Inc",
+  "groupings": {
   },
   "platforms": {
   },
-  "recommendations": {
+  "replacing": {
   },
   "providing": {
   },
   "dependencies": {
+    "sysctl": ">= 0.0.0",
     "sys_firewall": ">= 0.0.0",
-    "rightscale_services_tools": ">= 0.0.0",
     "rightscale": ">= 0.0.0",
-    "sysctl": ">= 0.0.0"
+    "rightscale_services_tools": ">= 0.0.0"
   },
-  "groupings": {
+  "long_description": "Description\n===========\n\nRequirements\n============\n\nAttributes\n==========\n\nUsage\n=====\n\n",
+  "version": "0.0.1",
+  "recipes": {
+    "jenkins::default": "Installs Jenkins"
   },
-  "replacing": {
+  "recommendations": {
   },
-  "maintainer": "RightScale Inc",
+  "description": "Installs/Configures jenkins",
+  "name": "jenkins",
   "conflicting": {
-  },
-  "maintainer_email": "premium@rightscale.com"
+  }
 }
