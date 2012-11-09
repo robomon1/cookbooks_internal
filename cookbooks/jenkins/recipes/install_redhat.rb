@@ -26,9 +26,4 @@ EOF
   not_if "test -e /tmp/jenkins-key-imported"
 end
 
-yum_package "jenkins" do
-  action :install
-  flush_cache [ :before ]
-end
-
 rightscale_marker :end

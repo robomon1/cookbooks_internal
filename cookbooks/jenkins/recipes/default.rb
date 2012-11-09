@@ -27,6 +27,11 @@ when "suse"
   include_recipe "jenkins::install_suse"
 end
 
+package "jenkins" do
+  action :install
+  flush_cache [ :before ]
+end
+
 template "/etc/sysconfig/jenkins" do
   source "sysconfig_jenkins.erb"
   owner "root"
@@ -38,5 +43,6 @@ end
 service "jenkins" do
   action [ :enable, :start ]
 end
+
 rightscale_marker :end
 
