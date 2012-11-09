@@ -29,7 +29,7 @@ end
 
 package "jenkins" do
   action :install
-  flush_cache [ :before ]
+#  flush_cache [ :before ]
 end
 
 template "/etc/sysconfig/jenkins" do
