@@ -27,4 +27,6 @@ EOF
   flags "-ex"
 end
 
+node[:jenkins][:conf_dir]='/etc/default'
+
 rightscale_marker :end

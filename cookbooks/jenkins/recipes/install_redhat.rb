@@ -26,4 +26,6 @@ EOF
   not_if "test -e /tmp/jenkins-key-imported"
 end
 
+node[:jenkins][:conf_dir]='/etc/sysconfig'
+
 rightscale_marker :end

@@ -32,7 +32,7 @@ package "jenkins" do
 #  flush_cache [ :before ]
 end
 
-template "/etc/sysconfig/jenkins" do
+template "#{node[:jenkins][:conf_dir]}/jenkins" do
   source "sysconfig_jenkins.erb"
   owner "root"
   group "root"
