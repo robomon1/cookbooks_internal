@@ -27,5 +27,16 @@ when "suse"
   include_recipe "jenkins::install_suse"
 end
 
+template "/etc/sysconfig/jenkins" do
+  source "sysconfig_jenkins.erb"
+  owner "root"
+  group "root"
+  mode "0777"
+  action :create
+end
+
+service "jenkins" do
+  action [ :enable, :start ]
+end
 rightscale_marker :end
 
