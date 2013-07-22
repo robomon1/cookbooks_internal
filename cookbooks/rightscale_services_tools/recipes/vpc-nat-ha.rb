@@ -21,6 +21,18 @@ template "/root/nat-monitor.sh" do
   )
   action :create
 end
+template "/root/nat-register.sh" do
+  source "nat-register.erb"
+  owner  "root"
+  group  "root"
+  mode   "0700"
+  variables( :other_instance_id=> node[:vpc_nat][:other_instance_id],
+  :other_route_id=>node[:vpc_nat][:other_route_id],
+  :route_id=>node[:vpc_nat][:route_id],
+  :ec2_url => node[:vpc_nat][:ec2_url]
+  )
+  action :create
+end
 template "/root/credentials.txt" do
   source "credentials.erb"
   owner  "root"
@@ -42,19 +54,28 @@ bash "install cron to run on reboot" do
   EOH
 end
 
-bash "start nat-monitor.sh" do
+bash "start nat-register.sh" do
   user "root"
   cwd "/root"
   code <<-EOH
-  echo `whoami`
-  for v in `env`; do
-    echo $v
-  done
-  
-  pkill nat-monitor > /dev/null
-  /root/nat-monitor.sh >> /var/log/nat-monitor.log &
+  pkill nat-register > /dev/null
+  /root/nat-register.sh >> /var/log/nat-register.log &
   EOH
 end
+
+#bash "start nat-monitor.sh" do
+#  user "root"
+#  cwd "/root"
+#  code <<-EOH
+#  echo `whoami`
+#  for v in `env`; do
+#    echo $v
+#  done
+#  
+#  pkill nat-monitor > /dev/null
+#  /root/nat-monitor.sh >> /var/log/nat-monitor.log &
+#  EOH
+#end
 
 
 rightscale_marker :end

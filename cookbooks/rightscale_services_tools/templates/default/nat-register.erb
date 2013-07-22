@@ -1,0 +1,43 @@
+#!/bin/bash
+# This script will monitor another NAT instance and take over its routes
+# if communication with the other instance fails
+
+# NAT instance variables
+# Other instance's IP to ping and route to grab if other node goes down
+NAT_ID=<%= @other_instance_id   %>
+NAT_RT_ID=<%= @other_route_id   %>
+
+# My route to grab when I come back up
+My_RT_ID=<%= @route_id   %>
+
+# Specify the EC2 region that this will be running in (e.g. https://ec2.us-east-1.amazonaws.com)
+EC2_URL=<%=@ec2_url%>
+
+# Health Check variables
+Num_Pings=3
+Ping_Timeout=1
+Wait_Between_Pings=2
+Wait_for_Instance_Stop=60
+Wait_for_Instance_Start=300
+
+# setup the ec2 env.
+. /etc/profile.d/ec2.sh
+
+# setup aws creds
+. /root/credentials.txt
+
+
+# Get this instance's ID
+Instance_ID=`/usr/bin/curl --silent http://169.254.169.254/latest/meta-data/instance-id`
+echo "Instance_ID: $Instance_ID"
+# Get the other NAT instance's IP
+NAT_IP=`/home/ec2/bin/ec2-describe-instances $NAT_ID -U $EC2_URL | grep PRIVATEIPADDRESS -m 1 | awk '{print $2;}'`
+
+echo `date` "-- Starting NAT monitor"
+echo `date` "-- Adding this instance to $My_RT_ID default route on start"
+echo `/home/ec2/bin/ec2-replace-route -v --debug $My_RT_ID -r 0.0.0.0/0 -i $Instance_ID -U $EC2_URL`
+# If replace-route failed, then the route might not exist and may need to be created instead
+if [ "$?" != "0" ]; then
+   echo "  robo: ec2-replace-route failed.  Running ec2-create-route..."
+   /home/ec2/bin/ec2-create-route -v --debug $My_RT_ID -r 0.0.0.0/0 -i $Instance_ID -U $EC2_URL
+fi
