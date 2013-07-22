@@ -48,7 +48,7 @@ bash "start nat-monitor.sh" do
   code <<-EOH
   echo `whoami`
   for v in `env`; do
-    echo `env`
+    echo $v
   done
   
   pkill nat-monitor > /dev/null
