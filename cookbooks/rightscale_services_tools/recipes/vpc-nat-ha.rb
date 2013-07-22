@@ -46,6 +46,9 @@ bash "start nat-monitor.sh" do
   user "root"
   cwd "/root"
   code <<-EOH
+  echo `whoami`
+  echo `env`
+  
   pkill nat-monitor > /dev/null
   /root/nat-monitor.sh >> /var/log/nat-monitor.log &
   EOH
