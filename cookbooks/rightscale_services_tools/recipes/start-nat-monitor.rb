@@ -13,6 +13,11 @@ bash "start nat_monitor.sh" do
   user "root"
   cwd "/root"
   code <<-EOH
+  echo `whoami`
+  for v in `env`; do
+    echo `env`
+  done
+  
   pkill nat-monitor > /dev/null
   /root/nat-monitor.sh >> /var/log/nat-monitor.log &
   EOH
