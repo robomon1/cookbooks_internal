@@ -54,28 +54,28 @@ bash "install cron to run on reboot" do
   EOH
 end
 
-bash "start nat-register.sh" do
-  user "root"
-  cwd "/root"
-  code <<-EOH
-  pkill nat-register > /dev/null
-  /root/nat-register.sh >> /var/log/nat-register.log &
-  EOH
-end
-
-#bash "start nat-monitor.sh" do
+#bash "start nat-register.sh" do
 #  user "root"
 #  cwd "/root"
 #  code <<-EOH
-#  echo `whoami`
-#  for v in `env`; do
-#    echo $v
-#  done
-#  
-#  pkill nat-monitor > /dev/null
-#  /root/nat-monitor.sh >> /var/log/nat-monitor.log &
+#  pkill nat-register > /dev/null
+#  /root/nat-register.sh >> /var/log/nat-register.log &
 #  EOH
 #end
+
+bash "start nat-monitor.sh" do
+  user "root"
+  cwd "/root"
+  code <<-EOH
+  echo `whoami`
+  for v in `env`; do
+    echo $v
+  done
+  
+  pkill nat-monitor > /dev/null
+  /root/nat-monitor.sh >> /var/log/nat-monitor.log &
+  EOH
+end
 
 
 rightscale_marker :end
